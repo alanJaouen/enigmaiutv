@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="enigma" version="4">
+  <OBJECT>
+    <ID name="enigma" mc="Standard.Package" uid="931f83db-b7dd-462f-bd66-3128db724417"/>
+    <PID name="Enigma" mc="Standard.Project" uid="138672b4-0f6b-44df-9330-a1e97c7e40f2"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[enigma]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Enigma" mc="Standard.Class" uid="6e74f38a-fbf2-4320-8a90-b218a8ce28bb"/>
+        <COMPID name="Rotor" mc="Standard.Class" uid="6141490c-4679-44b7-ae18-7163cf71598b"/>
+        <COMPID name="Composant" mc="Standard.Class" uid="2dd05c17-8e8a-46b6-94ce-bcba77ce1649"/>
+        <COMPID name="Reflecteur" mc="Standard.Class" uid="55ced5e2-30c5-4efa-a246-f1911674904b"/>
+        <COMPID name="Cable" mc="Standard.Class" uid="3d6f3486-0c49-45ee-8a8a-e99020df6fa4"/>
+        <COMPID name="Client" mc="Standard.Class" uid="fc739fe0-0739-4f5a-9f78-1057a3b07659"/>
+        <COMPID name="ComposantCryptage" mc="Standard.Class" uid="52ffa1bb-c284-472c-b750-b35349f6460c"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="overview diagram" mc="Standard.ClassDiagram" uid="4d8f1fc2-a6d5-4f6b-a0fc-a09fdb31fc0a"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

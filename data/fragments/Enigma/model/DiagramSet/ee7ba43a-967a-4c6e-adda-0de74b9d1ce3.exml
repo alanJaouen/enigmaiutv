@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Enigma" version="4">
+  <OBJECT>
+    <ID name="Enigma" mc="Standard.DiagramSet" uid="ee7ba43a-967a-4c6e-adda-0de74b9d1ce3"/>
+    <PID name="Enigma" mc="Standard.Project" uid="138672b4-0f6b-44df-9330-a1e97c7e40f2"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Enigma]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
