@@ -1,14 +1,13 @@
 
 public class Cable 
 {
-    public char lettre1;
+    private char lettre1;
 
-    public char lettre2;
+    private char lettre2;
 
     public Cable()
     {
-    	this.lettre1 = ' ';
-    	this.lettre2 = ' ';
+    	this(' ',' ');
     }
     
     public Cable(char l1, char l2)
@@ -17,25 +16,6 @@ public class Cable
     	this.lettre2 = l2;
     }
     
-    public void setLettre1(char l)
-    {
-    	this.lettre1 = l;
-    }
-    
-    public void setLettre2(char l)
-    {
-    	this.lettre2 = l;
-    }
-    
-    public char getLettre1()
-    {
-    	return this.lettre1;
-    }
-    
-    public char getLettre2()
-    {
-    	return this.lettre2;
-    }
     
     public char encode(char c) 
     {
@@ -46,15 +26,23 @@ public class Cable
     	return c;
     }
 
-    public boolean equals(Cable c)
-    {
-    	if (this == c)
-    		if(this.lettre1 == c.lettre1)
-    			if(this.lettre2 == c.lettre2)
-    				return true;
-    	return false;
-    }
-    
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cable other = (Cable) obj;
+		if (lettre1 != other.lettre1)
+			return false;
+		if (lettre2 != other.lettre2)
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return "Cable [lettre1=" + lettre1 + ", lettre2=" + lettre2 + "]";
