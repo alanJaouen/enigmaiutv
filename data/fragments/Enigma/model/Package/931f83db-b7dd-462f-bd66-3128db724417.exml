@@ -21,9 +21,17 @@
         <COMPID name="Cable" mc="Standard.Class" uid="3d6f3486-0c49-45ee-8a8a-e99020df6fa4"/>
         <COMPID name="Client" mc="Standard.Class" uid="fc739fe0-0739-4f5a-9f78-1057a3b07659"/>
         <COMPID name="ComposantCryptage" mc="Standard.Class" uid="52ffa1bb-c284-472c-b750-b35349f6460c"/>
+        <COMPID name="User" mc="Standard.Actor" uid="f722cff2-a7c4-4d92-b458-86a7454c9682"/>
+        <COMPID name="Interagir avec la machine" mc="Standard.UseCase" uid="24741eda-c394-4b49-9f9f-5f18ebab21be"/>
+        <COMPID name="Encoder un texte" mc="Standard.UseCase" uid="2c0acc4a-e91d-40de-8fd5-2dcc57c068de"/>
+        <COMPID name="Décoder un texte" mc="Standard.UseCase" uid="a3f7dbed-0467-45e7-ace6-4437d41e3889"/>
+        <COMPID name="Décoder un texte sans paramètre" mc="Standard.UseCase" uid="0657ac88-0c73-424f-9873-ce9a713890c5"/>
+        <COMPID name="Donner un texte" mc="Standard.UseCase" uid="c7c03732-d5cf-48fd-8c10-4d7b37340575"/>
+        <COMPID name="Donner un paramètre" mc="Standard.UseCase" uid="fa95d840-eb1a-4851-9e77-8c6f07dcc160"/>
       </COMP>
       <COMP relation="Product">
         <COMPID name="overview diagram" mc="Standard.ClassDiagram" uid="4d8f1fc2-a6d5-4f6b-a0fc-a09fdb31fc0a"/>
+        <COMPID name="enigma Use Case diagram" mc="Standard.UseCaseDiagram" uid="9cf022b4-89c1-4bbf-9561-b9d05391290b"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>
