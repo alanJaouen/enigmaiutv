@@ -44,4 +44,10 @@ public class Enigma extends Composant
     {
     }
 
+	@Override
+	public char encoder(char c, int sens) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

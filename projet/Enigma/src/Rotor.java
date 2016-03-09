@@ -1,5 +1,9 @@
 import java.util.Arrays;
 
+/**
+ * https://en.wikipedia.org/wiki/Enigma_rotor_details
+ * 
+ */
 
 public class Rotor extends ComposantCryptage
 {
