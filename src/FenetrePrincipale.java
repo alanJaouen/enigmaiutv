@@ -37,7 +37,7 @@ public class FenetrePrincipale extends JFrame {
 		super("IHM cool");
 		int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setBounds(0, 0, (int)((h/1.5)*1.7), (int)(h/1.5));
+		this.setBounds(h/100, w/100, (int)((h/1.5)*1.7), (int)(h/1.5));
 		this.pane=this.getContentPane();
 		
 		this.pane.add(this.getJPanel());
@@ -68,7 +68,7 @@ public class FenetrePrincipale extends JFrame {
 	private Component getPanelCable() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(5,1));
-		p.setBorder(BorderFactory.createTitledBorder("Réglage des cables"));
+		p.setBorder(BorderFactory.createTitledBorder("Rï¿½glage des cables"));
 		
 		
 		//haut
@@ -128,7 +128,7 @@ public class FenetrePrincipale extends JFrame {
 			};
 			
 			
-		p.setBorder(BorderFactory.createTitledBorder("Réglage des rotors"));
+		p.setBorder(BorderFactory.createTitledBorder("Rï¿½glage des rotors"));
 		p.setLayout(new GridLayout(1,3));
 		this.tabRotor = new JTextField[3];
 		for (int i=0; i<3; i+=1)
@@ -196,7 +196,7 @@ public class FenetrePrincipale extends JFrame {
 		
 		if(ediatable)
 		{
-			titre="Entrée";
+			titre="Entrï¿½e";
 			this.tabTextArea[0]=t1;
 			JButton valider = new JButton("Valider");//TODO ajouter listener
 			JButton fichier = new JButton("Lire un fichier");//TODO ajouter listener
