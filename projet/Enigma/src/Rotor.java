@@ -47,7 +47,7 @@ public class Rotor extends ComposantCryptage
 	}
 
 	/**
-     * si sens = 1,  retourne c encodé selon l'alphabet et la position du rotor sans faire tourner le rotor sinon retourne c
+     * si sens = 1,  retourne c encodï¿½ selon l'alphabet et la position du rotor sans faire tourner le rotor sinon retourne c
      */
     public char encoder(char c, int sens) 
     {
@@ -80,7 +80,7 @@ public class Rotor extends ComposantCryptage
     		this.positionCourante++;
     	}
     	
-    	if(this.positionCourante==this.positionInitiale)
+    	if(this.positionCourante==this.positionInitiale)//TODO les 2 suivants
     	{	
     		Object o=super.getComposantSuivant();
     		
