@@ -17,6 +17,28 @@ public class TestRotor {
 			ro2.positionInitiale('j');
 			System.out.println(ro2);
 	
+			// TEST ENCODAGE
+			
+			
+			
+			
+			//TEST TOURNER 
+			
+			ro2.tourner();
+			System.out.println(ro2);
+			ro2.tourner();
+			System.out.println(ro2); // retour à la position 0
+			ro2.tourner();
+			System.out.println(ro2);
+			ro2.tourner();
+			System.out.println(ro2);
+			ro2.tourner();
+			System.out.println(ro2);
+			ro2.tourner();
+			System.out.println(ro2);
+
+			
+			
 	}
 
 }

@@ -15,7 +15,8 @@ public class Rotor extends ComposantCryptage
 
     
     public Rotor( int pInit, int pCourante, char[] alettresRotor)
-    {
+    {	
+    	super();
     	this.positionInitiale = pInit;
     	this.positionCourante = pCourante;
     	super.lettresRotor= alettresRotor;
@@ -67,7 +68,27 @@ public class Rotor extends ComposantCryptage
      */
     public void tourner() 
     {
+    	if(this.positionCourante==lettresRotor.length)
+    	{	
+    		
+    		this.positionCourante=0;
+    		
+    	}
     	
+    	else
+    	{
+    		this.positionCourante++;
+    	}
+    	
+    	if(this.positionCourante==this.positionInitiale)
+    	{	
+    		Object o=super.getComposantSuivant();
+    		
+    		if( o instanceof Rotor)
+    		{
+    			((Rotor) o).tourner();
+    		}
+    	}
     }
 
     

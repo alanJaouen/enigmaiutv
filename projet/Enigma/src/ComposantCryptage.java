@@ -5,4 +5,9 @@ public abstract class ComposantCryptage extends Composant {
     @objid ("8624c751-3a28-416f-97f9-6802bf5c29ee")
     public char[] lettresRotor;
 
+	public ComposantCryptage() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }
