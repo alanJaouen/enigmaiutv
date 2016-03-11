@@ -13,7 +13,10 @@ public class Rotor extends ComposantCryptage
     public int positionCourante;
 
 
-    
+    /* 1er rotor = {'e','k','m','f','l','g','d','q','v','z','n','t','o','w','y','h','x','u','s','p','a','i','b','r','c','j'} 
+     * 2eme rotor = {'a','j','d','k','s','i','r','u','x','b','l','h','w','t','m','c','q','g','z','n','p','y','f','v','o','e'}
+     * 3eme rotor = {'b','d','f','h','j','l','c','p','r','t','x','v','z','n','y','e','i','w','g','a','k','m','u','s','q','o'}
+     */
     public Rotor( int pInit, int pCourante, char[] alettresRotor)
     {	
     	super();
@@ -51,6 +54,9 @@ public class Rotor extends ComposantCryptage
      */
     public char encoder(char c, int sens) 
     {
+<<<<<<< .mine
+    	
+=======
     	if(sens==1)
     	{
     		
@@ -60,6 +66,7 @@ public class Rotor extends ComposantCryptage
     	}
     	else 
     		return c;
+>>>>>>> .r20
     }
 
     /**
