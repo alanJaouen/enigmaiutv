@@ -36,9 +36,5 @@ public class TestRotor {
 			System.out.println(ro2);
 			ro2.tourner();
 			System.out.println(ro2);
-
-			
-			
 	}
-
 }
