@@ -11,12 +11,13 @@ public class Rotor extends ComposantCryptage
     public int positionInitiale;
 
     public int positionCourante;
+    
 
-
-    /* 1er rotor = {'e','k','m','f','l','g','d','q','v','z','n','t','o','w','y','h','x','u','s','p','a','i','b','r','c','j'} 
-     * 2eme rotor = {'a','j','d','k','s','i','r','u','x','b','l','h','w','t','m','c','q','g','z','n','p','y','f','v','o','e'}
-     * 3eme rotor = {'b','d','f','h','j','l','c','p','r','t','x','v','z','n','y','e','i','w','g','a','k','m','u','s','q','o'}
-     */
+	public char[] alp1= {'e','k','m','f','l','g','d','q','v','z','n','t','o','w','y','h','x','u','s','p','a','i','b','r','c','j'};
+	public char[] alp2= {'a','j','d','k','s','i','r','u','x','b','l','h','w','t','m','c','q','g','z','n','p','y','f','v','o','e'};
+    public char[] alp3= {'b','d','f','h','j','l','c','p','r','t','x','v','z','n','y','e','i','w','g','a','k','m','u','s','q','o'};
+     
+    
     public Rotor( int pInit, int pCourante, char[] alettresRotor)
     {	
     	super();
@@ -54,9 +55,7 @@ public class Rotor extends ComposantCryptage
      */
     public char encoder(char c, int sens) 
     {
-<<<<<<< .mine
-    	
-=======
+
     	if(sens==1)
     	{
     		
@@ -66,7 +65,7 @@ public class Rotor extends ComposantCryptage
     	}
     	else 
     		return c;
->>>>>>> .r20
+
     }
 
     /**
@@ -90,11 +89,17 @@ public class Rotor extends ComposantCryptage
     	if(this.positionCourante==this.positionInitiale)//TODO les 2 suivants
     	{	
     		Object o=super.getComposantSuivant();
-    		
+    		Object p=super.getComposantSuivant().getComposantSuivant();
     		if( o instanceof Rotor)
     		{
     			((Rotor) o).tourner();
+    			
+    			if( p instanceof Rotor)
+    			{
+    				((Rotor) p).tourner();
+    			}
     		}
+    		
     	}
     }
 
