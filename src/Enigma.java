@@ -5,12 +5,19 @@ public class Enigma extends Composant
 
     public Cable cable2;
 
+	public Rotor r1;
+	public Rotor r2;
+	public Rotor r3;
+
+	public Reflecteur reflec;
+
     /**
      * fait tourner le 1er rotor (cascade pour les autre) (nb singe: super.suivant ;) )
      * 
      */
     public void rotationRotor() 
     {
+    	r1.tourner();
     }
 
     /**
@@ -21,6 +28,9 @@ public class Enigma extends Composant
      */
     public void reglerRotor(char c1, char c2, char c3) 
     {
+    	r1.positionInitiale(c1);
+    	r2.positionInitiale(c2);
+    	r3.positionInitiale(c3);
     }
 
     /**
@@ -42,6 +52,14 @@ public class Enigma extends Composant
      */
     public Enigma(Rotor r1, Rotor r2, Rotor r3, Reflecteur reflec) 
     {
+    	super();
+    	this.r1=r1;
+    	this.r2=r2;
+    	this.r3=r3;
+    	this.reflec=reflec;
+    	
+    	
+    	
     }
 
 	@Override
