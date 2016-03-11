@@ -58,8 +58,51 @@ public class Rotor extends ComposantCryptage
 
     	if(sens==1)
     	{
-    		
-    		
+    		if(this.equals("r1")) // A L AIDE ALAN J AI PAS COMPRIS POURQUOI CA MARCHE
+    		{
+    			for(int i=0;i<lettresRotor.length;i++)
+    	    		if(lettresRotor[i]==c)
+    	    		{
+    	    			i=i+this.positionCourante;
+    	    			if(i>alp1.length)
+    	    			{
+    	    				i=i-alp1.length;
+    	    			}
+    	    			c=alp1[i];
+    	    			
+    	    			
+    	    		}
+    		}
+    		else if(this.equals("r2")) 
+    		{
+    			for(int i=0;i<lettresRotor.length;i++)
+    	    		if(lettresRotor[i]==c)
+    	    		{
+    	    			i=i+this.positionCourante;
+    	    			if(i>alp2.length)
+    	    			{
+    	    				i=i-alp2.length;
+    	    			}
+    	    			c=alp2[i];
+    	    			
+    	    			
+    	    		}
+    		}
+    		else if(this.equals("r3")) 
+    		{
+    			for(int i=0;i<lettresRotor.length;i++)
+    	    		if(lettresRotor[i]==c)
+    	    		{
+    	    			i=i+this.positionCourante;
+    	    			if(i>alp3.length)
+    	    			{
+    	    				i=i-alp3.length;
+    	    			}
+    	    			c=alp3[i];
+    	    			
+    	    			
+    	    		}
+    		}
     		
     		return c;
     	}
@@ -86,7 +129,7 @@ public class Rotor extends ComposantCryptage
     		this.positionCourante++;
     	}
     	
-    	if(this.positionCourante==this.positionInitiale)//TODO les 2 suivants
+    	if(this.positionCourante==this.positionInitiale)
     	{	
     		Object o=super.getComposantSuivant();
     		Object p=super.getComposantSuivant().getComposantSuivant();
