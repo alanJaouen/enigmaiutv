@@ -10,7 +10,7 @@ public class TestRotor {
 			
 			// TEST DES CONSTRUCTEURS
 		
-			Rotor ro2=new Rotor(5,6,q);
+			Rotor ro2=new Rotor(6,q);
 			System.out.println(ro2);
 			
 			// TEST POSITION INITIALE
@@ -27,7 +27,7 @@ public class TestRotor {
 			ro2.tourner();
 			System.out.println(ro2);
 			ro2.tourner();
-			System.out.println(ro2); // retour à la position 0
+			System.out.println(ro2); // retour ï¿½ la position 0
 			ro2.tourner();
 			System.out.println(ro2);
 			ro2.tourner();

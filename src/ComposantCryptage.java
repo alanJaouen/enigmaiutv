@@ -1,10 +1,16 @@
 
 public abstract class ComposantCryptage extends Composant
 {
-    public char[] lettresRotor;
-	public ComposantCryptage() {
-		super();
-		// TODO Auto-generated constructor stub
+    private char[] lettresRotor;
+
+	public char[] getLettresRotor() {
+		return lettresRotor;
 	}
 
+	public void setLettresRotor(char[] lettresRotor) {
+		this.lettresRotor = lettresRotor;
+	}
+
+    
+    
 }

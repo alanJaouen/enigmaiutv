@@ -44,10 +44,8 @@ public class FenetrePrincipale extends JFrame {
 	
 	private JTextField[] tabRotor;
 	
-	private JLabel c11;
-	private JLabel c12;
-	private JLabel c21;
-	private JLabel c22;
+	private JLabel[][] tabCables = new JLabel[2][2];
+	
 	
 	private CableThread thread;
 	
@@ -97,6 +95,29 @@ public class FenetrePrincipale extends JFrame {
 		return p;
 	}
 
+	
+	
+	private JPanel getPanelUnCable(int cable)
+	{
+		JPanel p = new JPanel();
+		
+		JLabel c=new JLabel("Cable "+(cable+1));
+		
+		if(cable == 0)
+			c.setForeground(Color.blue);
+		else c.setForeground(Color.red);
+		
+		p.add(c);
+		
+		p.add(new JLabel(" relie "));
+		
+		p.add(this.tabCables[cable][0]);
+		p.add(new JLabel(" et "));
+		p.add(this.tabCables[cable][1]);
+		
+		return p;
+	}
+	
 	private Component getPanelCable() {
 		JPanelCable p = new JPanelCable() ;
 		p.setLayout(new GridLayout(5,1,getWidth()/25,getWidth()/25));
@@ -105,37 +126,44 @@ public class FenetrePrincipale extends JFrame {
 		
 		//haut
 		JPanel cable1= new JPanel();
-		this.c11= new JLabel("a");//TODO initialisation
-		this.c12= new JLabel("b");
-		this.c21= new JLabel("c");//TODO initialisation
-		this.c22= new JLabel("d");
+		this.tabCables[0][0]= new JLabel("a");//TODO initialisation
+		this.tabCables[0][1]= new JLabel("b");
+		this.tabCables[1][0]= new JLabel("c");//TODO initialisation
+		this.tabCables[1][1]= new JLabel("d");
 		
-		cable1.add(c11);
-		cable1.add(new JLabel("Cable 1"));
-		cable1.add(c12);
-		p.add(cable1);
+		for(JLabel[] labeltab: this.tabCables) //on parcour tout les label des cables
+			for(JLabel label: labeltab)
+				label.setBorder(BorderFactory.createLineBorder(Color.gray));
+		
+		
+		
+		p.add(this.getPanelUnCable(0));
 		//millieu
 		
 		
+		/*on ajoute les touches "clavier"*/
 		
-		JPanel[] panelTouches= new JPanel[3];
+		JPanel[] panelTouches= new JPanel[3];//sur trois lignes
 		
 		
-		
-		for(int j=0; j<3; j++)
+		for(int j=0; j<3; j++) //pour chaque ligne
 		{
-			panelTouches[j]=new JPanel();
-			panelTouches[j].setLayout(new GridLayout(1,10,getWidth()/75,getWidth()/75));
-			for(char i: tabClavier[j])
+			panelTouches[j]=new JPanel();//on cree un contener
+			panelTouches[j].setLayout(new GridLayout(1,10,getWidth()/75,getWidth()/75));//avec 10 cases horizontales
+			for(char i: tabClavier[j])//pour chaque lettre de cette ligne
 			{
-				MonJLabel t=new MonJLabel(i+"");
+				MonJLabel t=new MonJLabel(i+"");//on cree un label avec cette lettre
 
-				if(i !=' ')
+				if(i !=' ')//si ce n'est pas un espace on ajoute une bordure
 					t.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 				
-				if(i == c11.getText().charAt(0) || i == c12.getText().charAt(0) || i == c21.getText().charAt(0) || i == c22.getText().charAt(0))
-					t.setRelier(true);
-				else t.setRelier(false);
+				for(JLabel[] labeltab: this.tabCables) //on parcour tout les label des cables
+					for(JLabel label: labeltab)
+						if(i == label.getText().charAt(0) ) //si le cable est relier on met son attribut relier a vrai
+							t.setRelier(true);
+						else t.setRelier(false);	// sinon on le met a faux
+				
+				
 				t.addMouseListener(new CableListener());
 				
 				t.setHorizontalAlignment(JTextField.CENTER);
@@ -145,11 +173,7 @@ public class FenetrePrincipale extends JFrame {
 			p.add(panelTouches[j]);
 		}
 		//bas
-		JPanel cable2= new JPanel();		
-		cable2.add(c21);
-		cable2.add(new JLabel("Cable 2"));
-		cable2.add(c22);
-		p.add(cable2);
+		p.add(this.getPanelUnCable(1));
 		
 		//fin
 		return p;
@@ -317,8 +341,14 @@ public class FenetrePrincipale extends JFrame {
 					int lu;
 					while ((lu=br.read()) != -1)
 					{
+						if( lu>=65 && lu<=90)//on converti les majuscule en minuscules
+							lu=lu+32;
+						
 						if( (lu>=97 && lu<=122)/*a à z*/ || lu==32 /*espace*/ )
 							str+=(char)lu;
+						else
+							str+=' ';
+						
 					}
 					br.close();				
 				}  
@@ -393,67 +423,59 @@ public class FenetrePrincipale extends JFrame {
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			MonJLabel source= (MonJLabel) arg0.getSource();
-			
+			FenetrePrincipale.this.repaint();
 			if(source.getText().charAt(0)==' ')
 					return;
 			
 			char i='*';
-			
+			boolean cableEnMain=false;
 			//si on a un cable en main
-			if(i == c11.getText().charAt(0) || i == c12.getText().charAt(0) || i == c21.getText().charAt(0) || i == c22.getText().charAt(0))
+			for(JLabel[] labeltab: FenetrePrincipale.this.tabCables) //on parcour tout les label des cables
+				for(JLabel label: labeltab)
+					if(i == label.getText().charAt(0))
+					{
+						cableEnMain=true;
+						break;
+					}
+			
+			if( cableEnMain	)
 			{
 				i=source.getText().charAt(0);
 				
-				//si la lettre est deja relier a un cable on anulle
-				if(i == c11.getText().charAt(0) || i == c12.getText().charAt(0) || i == c21.getText().charAt(0) || i == c22.getText().charAt(0))
-					return;
+				//si la lettre est deja relier a un cable on anulle				
+				for(JLabel[] labeltab: FenetrePrincipale.this.tabCables) //on parcour tout les label des cables
+					for(JLabel label: labeltab)
+						if(i == label.getText().charAt(0))
+							return;
 				
+				//on change le label correspondant
 				source.setRelier(true);
-				if('*'==c11.getText().charAt(0))
-				{
-					c11.setText(i+"");
-				}
-				else if('*'==c12.getText().charAt(0))
-				{
-					c12.setText(i+"");
-				}
-				else if('*'==c21.getText().charAt(0))
-				{
-					c21.setText(i+"");
-				}
-				else if('*'==c22.getText().charAt(0))
-				{
-					c22.setText(i+"");
-				}
+				for(JLabel[] labeltab: FenetrePrincipale.this.tabCables) //on parcour tout les label des cables
+					for(JLabel label: labeltab)
+						if('*' == label.getText().charAt(0))
+						{
+							label.setText(i+"");
+							break;
+						}
+				
+				//on fini le thread "d'animation" du cable
 				FenetrePrincipale.this.thread.finir();
 				
 			}
 			else
-			{//on met la lettre a *
+			{//on met la lettre à '*'
 				char lettre= source.getText().charAt(0);
 				source.setRelier(false);
-				if(lettre==c11.getText().charAt(0))
-				{
-					c11.setText(i+"");
-					this.lancerThread();
-				}
-				else if(lettre==c12.getText().charAt(0))
-				{
-					c12.setText(i+"");
-					this.lancerThread();
-				}
-				else if(lettre==c21.getText().charAt(0))
-				{
-					c21.setText("*");
-					this.lancerThread();
-				}
-				else if(lettre==c22.getText().charAt(0))
-				{
-					c22.setText("*");
-					this.lancerThread();
-				}
 				
 				
+				for(JLabel[] labeltab: FenetrePrincipale.this.tabCables) //on parcour tout les label des cables
+					for(JLabel label: labeltab)
+						if(lettre == label.getText().charAt(0))
+						{
+							label.setText(i+"");
+							this.lancerThread();
+							break;
+						}				
 			}
 			FenetrePrincipale.this.repaint();
 		}
@@ -508,62 +530,44 @@ public class FenetrePrincipale extends JFrame {
 		{
 			super.paint(g);
 			
-			//cable 1
-			g.setColor(Color.BLUE);
-			char[] lettre= {c11.getText().charAt(0), c12.getText().charAt(0)};
-			int[] x = new int[2];
-			int[] y = new int[2];
 			
-			for(int k=0; k<2; k++)
-			{
-				if(lettre[k]=='*')
+			for(int m=0;m<2;m++){//
+				
+				if(m==0)
+					g.setColor(Color.BLUE);
+				else
+					g.setColor(Color.red);
+				
+				
+				char[] lettre= {
+						FenetrePrincipale.this.tabCables[m][0].getText().charAt(0),
+						FenetrePrincipale.this.tabCables[m][1].getText().charAt(0)};
+				int[] x = new int[2];
+				int[] y = new int[2];
+				
+				for(int k=0; k<2; k++)
 				{
-					x[k]=this.x;
-					y[k]=this.y;
-					continue;
-				}
-				for(int i=0; i<3; i++)
-					for(int j=0; j<10; j++)
+					if(lettre[k]=='*')
 					{
-						if(lettre[k]== tabClavier[i][j])
-						{
-							x[k]=j*(getWidth()/10)+getWidth()/20;
-							y[k]=(1+i)*(getHeight()/5) + (getHeight()/10) + (getHeight()/100);
-						}
+						x[k]=this.x;
+						y[k]=this.y;
+						continue;
 					}
+					for(int i=0; i<3; i++)
+						for(int j=0; j<10; j++)
+						{
+							if(lettre[k]== tabClavier[i][j])
+							{
+								x[k]=j*(getWidth()/10)+getWidth()/20;
+								y[k]=(1+i)*(getHeight()/5) + (getHeight()/10) + (getHeight()/100) +m*2;
+							}
+						}
+					
+				}
+				
+				g.drawLine(x[0], y[0], x[1], y[1]);
 				
 			}
-			
-			g.drawLine(x[0], y[0], x[1], y[1]);
-			
-			//cable 2
-			
-			
-			g.setColor(Color.RED);
-			char[] lettre2= {c21.getText().charAt(0), c22.getText().charAt(0)};
-			
-			for(int k=0; k<2; k++)
-			{
-				if(lettre2[k]=='*')
-				{
-					x[k]=this.x;
-					y[k]=this.y;
-					continue;
-				}
-				for(int i=0; i<3; i++)
-					for(int j=0; j<10; j++)
-					{
-						if(lettre2[k]== tabClavier[i][j])
-						{
-							x[k]=j*(getWidth()/10)+getWidth()/20;
-							y[k]=(1+i)*(getHeight()/5) + (getHeight()/10) + (getHeight()/100) +2;
-						}
-					}
-				
-			}
-			
-			g.drawLine(x[0], y[0], x[1], y[1]);
-			
 			
 		}
 		
@@ -611,7 +615,7 @@ public class FenetrePrincipale extends JFrame {
 		}
 	}
 	
-	class MyDocumentFilter extends DocumentFilter {
+	public class MyDocumentFilter extends DocumentFilter {
 
 	    @Override
 	    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
