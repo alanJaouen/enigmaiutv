@@ -1,14 +1,10 @@
 public class Reflecteur extends ComposantCryptage 
 {
-
+	
 	public Reflecteur ()
 	{
-		this(null);
-	}
-	
-	public Reflecteur (char[] alettresRotor)
-	{
-		super.lettresRotor = alettresRotor;
+		char[] tab= {'f','v','p','j','i','a','o','y','e','d','r','z','x','w','g','c','t','k','u','q','s','b','n','m','h','l'};
+		super.setLettresRotor(tab);
 	}
 	
 	/**
@@ -18,10 +14,9 @@ public class Reflecteur extends ComposantCryptage
 	public char encoder(char c, int sens)
 	{
 		/* reflecteur C http://www.codesandciphers.org.uk/enigma/rotorspec.htm */
-		
-		char[] codeLettresRotor = {'f','v','p','j','i','a','o','y','e','d','r','z','x','w','g','c','t','k','u','q','s','b','n','m','h','l'};
-		
-		return 0;
+		//System.out.println(c+" devient "+super.getLettresRotor()[((int) c)-97]);
+		return super.getComposantPrecedant().encoder(super.getLettresRotor()[((int) c)-97], -1);
+
 	}
 
 }
