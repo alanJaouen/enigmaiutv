@@ -76,6 +76,7 @@ public class FenetrePrincipale extends JFrame {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+		FenetrePrincipale.this.enigma= new Enigma();
 		
 	}
 
@@ -287,16 +288,16 @@ public class FenetrePrincipale extends JFrame {
 		t1.setLineWrap(true);
 		t1.setWrapStyleWord(true);
 		
-		((AbstractDocument) t1.getDocument()).setDocumentFilter(new MyDocumentFilter());
-		
 		if(ediatable)
 		{
 			titre="Entrée";
 			this.tabTextArea[0]=t1;
+			((AbstractDocument) t1.getDocument()).setDocumentFilter(new MyDocumentFilter());
 			JButton reglage = new JButton("Convertir avec réglages");//TODO ajouter listener
 			JButton nonreglage = new JButton("Convertir sans réglages");//TODO ajouter listener
 			JButton fichier = new JButton("Lire un fichier");
 			fichier.addActionListener(new FicherListener());
+			reglage.addActionListener(new TraduireListener());
 			
 			JPanel panelbouton= new JPanel();
 			panelbouton.setLayout(new GridLayout(1,2));
@@ -366,6 +367,33 @@ public class FenetrePrincipale extends JFrame {
 		
 		
 	}//fin FichierListener
+	
+	public class TraduireListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+		int i=1;
+			//reglage cables
+			FenetrePrincipale.this.enigma.reglerCable(1,
+					FenetrePrincipale.this.tabCables[0][0].getText().charAt(0),
+					FenetrePrincipale.this.tabCables[0][1].getText().charAt(0));
+			FenetrePrincipale.this.enigma.reglerCable(2,
+					FenetrePrincipale.this.tabCables[1][0].getText().charAt(0),
+					FenetrePrincipale.this.tabCables[1][1].getText().charAt(0));
+			
+			//reglage rotor
+			FenetrePrincipale.this.enigma.reglerRotor(
+					FenetrePrincipale.this.tabRotor[0].getText().charAt(0), 
+					FenetrePrincipale.this.tabRotor[1].getText().charAt(0),
+					FenetrePrincipale.this.tabRotor[2].getText().charAt(0));
+			String chaine=FenetrePrincipale.this.enigma.encoder(FenetrePrincipale.this.tabTextArea[0].getText());
+		
+			
+			FenetrePrincipale.this.tabTextArea[1].setText(chaine);
+			
+		}
+		
+	}//fin de TraduireListener
 	
 	public class BoutonRotor implements ActionListener
 	{
