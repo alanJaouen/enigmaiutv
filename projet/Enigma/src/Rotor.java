@@ -32,6 +32,7 @@ public class Rotor extends ComposantCryptage
     		{
     			this.positionInitiale=i;
     			this.positionCourante=i;
+    			System.out.println("posI: "+this.positionCourante);
     			return;
     		}
     	
@@ -47,6 +48,7 @@ public class Rotor extends ComposantCryptage
 
     public char encoder(char c, int sens) 
     {
+    	
     	if(sens==1)//on passe de decoder a coder	
     	{
     		 return super.getComposantSuivant().encoder(super.getLettresRotor()[     ((((int) c)-97) +this.positionCourante)%26      ], sens);
@@ -57,13 +59,15 @@ public class Rotor extends ComposantCryptage
     		for(int i= 0; i<super.getLettresRotor().length ; i++)
     			if(super.getLettresRotor()[i] == c)
     			{
-    				rang=i;
+    				rang=i-this.positionCourante;
     				break;
     			}
     		
-    		char c2= (char)(rang+97);//TODO optimiser factoriser
-    		//System.out.println(c+" devient "+c2);
-    		return super.getComposantPrecedant().encoder(c2, sens);
+    		if(rang<0)//cas particulier de position courante>rang
+    			rang=26+rang;//on retourne simplement a l'autre bout du tableau
+    		
+    		return super.getComposantPrecedant().encoder((char)((rang%26)+97), sens);
+
     	}
     	
     	return ' ';
