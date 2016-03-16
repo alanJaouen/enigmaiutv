@@ -20,9 +20,9 @@ public class Cable
     public char encode(char c) 
     {
     	if(c==this.lettre1)
-    		return this.lettre1;
-    	if(c==this.lettre2)
     		return this.lettre2;
+    	if(c==this.lettre2)
+    		return this.lettre1;
     	return c;
     }
 
