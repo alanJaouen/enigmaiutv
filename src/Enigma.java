@@ -119,8 +119,8 @@ public class Enigma extends Composant
 			return super.getComposantSuivant().encoder(c, sens);
 		case -1:
 			((Rotor)super.getComposantSuivant()).tourner();
-			c=this.cable1.encode(c);
-			c=this.cable2.encode(c);
+			/*c=this.cable1.encode(c);
+			c=this.cable2.encode(c);*/
 			return c;
 		}
 		return '&';
