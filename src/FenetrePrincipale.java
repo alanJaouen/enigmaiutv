@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -46,7 +47,6 @@ public class FenetrePrincipale extends JFrame {
 	
 	private JLabel[][] tabCables = new JLabel[2][2];
 	
-	
 	private CableThread thread;
 	
 	private static final char[][] tabClavier= {
@@ -71,7 +71,6 @@ public class FenetrePrincipale extends JFrame {
 		this.pane=this.getContentPane();
 		
 		this.pane.add(this.getJPanel());
-		
 		
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -103,7 +102,6 @@ public class FenetrePrincipale extends JFrame {
 		JPanel p = new JPanel();
 		
 		JLabel c=new JLabel("Cable "+(cable+1));
-		
 		if(cable == 0)
 			c.setForeground(Color.blue);
 		else c.setForeground(Color.red);
@@ -121,7 +119,7 @@ public class FenetrePrincipale extends JFrame {
 	
 	private Component getPanelCable() {
 		JPanelCable p = new JPanelCable() ;
-		p.setLayout(new GridLayout(5,1,getWidth()/25,getWidth()/25));
+		p.setLayout(new GridLayout(5,1,getWidth()/50,getWidth()/50));
 		p.setBorder(BorderFactory.createTitledBorder("Réglage des cables"));
 		
 		
@@ -293,8 +291,8 @@ public class FenetrePrincipale extends JFrame {
 			titre="Entrée";
 			this.tabTextArea[0]=t1;
 			((AbstractDocument) t1.getDocument()).setDocumentFilter(new MyDocumentFilter());
-			JButton reglage = new JButton("Convertir avec réglages");//TODO ajouter listener
-			JButton nonreglage = new JButton("Convertir sans réglages");//TODO ajouter listener
+			JButton reglage = new JButton("avec réglages");//TODO ajouter listener
+			JButton nonreglage = new JButton("sans réglages");//TODO ajouter listener
 			JButton fichier = new JButton("Lire un fichier");
 			fichier.addActionListener(new FicherListener());
 			reglage.addActionListener(new TraduireListener());
@@ -647,7 +645,8 @@ public class FenetrePrincipale extends JFrame {
 
 	    @Override
 	    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
-	        for (int n = string.length(); n > 0; n--) {//si copier coller
+	        for (int n = string.length(); n > 0; n--) 
+	        {//si copier coller
 	            char c = string.charAt(n - 1);//on fait les caractere 1 par 1
 	            if ((c>=97 && c<=122) || c == ' ') //si une lettre minuscule ou un espace
 	                super.replace(fb, i, i1, String.valueOf(c), as);//on ajoute au document
