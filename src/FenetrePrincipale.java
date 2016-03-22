@@ -30,12 +30,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.DocumentFilter.FilterBypass;
+
+import com.sun.java.swing.plaf.windows.WindowsFileChooserUI;
 
 public class FenetrePrincipale extends JFrame {
 	
@@ -64,10 +68,13 @@ public class FenetrePrincipale extends JFrame {
 
 	public FenetrePrincipale()
 	{
-		super("IHM cool");
+		super("Enigma PROJET MATHÉMATIQUE S4");
 		int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		this.setBounds(h/100, w/100, (int)((h/1.5)*1.7), (int)(h/1.5));
+		this.setBounds((w/2)- ((int)((h/1.5)*1.7))/2,
+				(h/2)-((int)(h/1.5))/2,
+				(int)((h/1.5)*1.7),
+				(int)(h/1.5));
 		this.pane=this.getContentPane();
 		
 		this.pane.add(this.getJPanel());
@@ -326,6 +333,15 @@ public class FenetrePrincipale extends JFrame {
 			
 			//Create a file chooser
 			final JFileChooser fc = new JFileChooser();
+			
+			
+			try {
+				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+				SwingUtilities.updateComponentTreeUI(fc);
+				}catch ( Exception e ) {
+				System.err.println( "Could not use Look and Feel:" + e );
+				}
+			
 			int returnVal = fc.showOpenDialog(FenetrePrincipale.this);//return 1 si erreur
 			
 			if(returnVal == 0) //si l'utilisateur a chois un fichier
