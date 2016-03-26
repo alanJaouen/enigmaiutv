@@ -11,6 +11,8 @@ public class Enigma extends Composant
     private Cable cable2;
 
 	private BufferedReader br;
+	
+	private FenetreWait avanc; 
     
 	/* SUPPRIME MOI!*/
 	public static void main(String args[])
@@ -171,10 +173,15 @@ public class Enigma extends Composant
 			tab_rotor[i] = (char)('A' + i-1);
 		}
 		
+		this.avanc.setAvancement(0);
+		
 		for(int i=0 ; i<tab_rotor.length ; i++)
 		{
+			
+			int vali=(i*100)/25;
 			for(int j=0 ; j<tab_rotor.length ; j++)
 			{
+				this.avanc.setAvancement(vali+  ((j*(100/25))/25)  );
 				for(int k=0 ; k<tab_rotor.length ; k++)
 				{
 					reglerRotor(tab_rotor[i], tab_rotor[j], tab_rotor[k]) ;
@@ -191,10 +198,19 @@ public class Enigma extends Composant
 				}
 			}
 		}
+		this.avanc.dispose();
 		return retour;
 	}
 
-	int parcours_dico(String s) 
+	public FenetreWait getAvanc() {
+		return avanc;
+	}
+
+	public void setAvanc(FenetreWait avanc) {
+		this.avanc = avanc;
+	}
+
+	private int parcours_dico(String s) 
 	{	
 		int nb_occurence=0;
 		
