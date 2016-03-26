@@ -305,11 +305,12 @@ public class FenetrePrincipale extends JFrame {
 			titre="Entrée";
 			this.tabTextArea[0]=t1;
 			((AbstractDocument) t1.getDocument()).setDocumentFilter(new MyDocumentFilter());
-			JButton reglage = new JButton("avec réglages");//TODO ajouter listener
-			JButton nonreglage = new JButton("sans réglages");//TODO ajouter listener
+			JButton reglage = new JButton("avec réglages");
+			JButton nonreglage = new JButton("sans réglages");
 			JButton fichier = new JButton("Lire un fichier");
 			fichier.addActionListener(new FicherListener());
 			reglage.addActionListener(new TraduireListener());
+			nonreglage.addActionListener(new TraduireListenerSansParam());
 			
 			JPanel panelbouton= new JPanel();
 			panelbouton.setLayout(new GridLayout(1,2));
@@ -381,13 +382,7 @@ public class FenetrePrincipale extends JFrame {
 				}
 				FenetrePrincipale.this.tabTextArea[0].setText(str);
 			}
-			
-			
-			
-			
-		}
-		
-		
+		}		
 	}//fin FichierListener
 	
 	public class TraduireListener implements ActionListener
@@ -416,6 +411,17 @@ public class FenetrePrincipale extends JFrame {
 		}
 		
 	}//fin de TraduireListener
+	
+	public class TraduireListenerSansParam implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			String chaine=FenetrePrincipale.this.enigma.decoder(FenetrePrincipale.this.tabTextArea[0].getText());
+			FenetrePrincipale.this.tabTextArea[1].setText(chaine);
+		}
+		
+	}//fin de TraduireListenerSansParam
 	
 	public class BoutonRotor implements ActionListener
 	{
@@ -705,6 +711,7 @@ public class FenetrePrincipale extends JFrame {
 	        super.insertString(fb, i, string, as);
 
 	    }
+	    
 	}
 	
 }

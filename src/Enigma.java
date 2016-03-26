@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Enigma extends Composant
 {
@@ -5,17 +10,18 @@ public class Enigma extends Composant
 
     private Cable cable2;
 
+	private BufferedReader br;
     
 	/* SUPPRIME MOI!*/
 	public static void main(String args[])
 	{
 		Enigma bob= new Enigma();
-		String chaine= "je suis trop fort je pese dans le game allez tous crever en enfer";
+		String chaine= "il faut demander aux autres de venir";
+		System.out.println(chaine);
 		chaine=bob.encoder(chaine);
 		System.out.println(chaine);
-		bob= new Enigma();
-		
-		System.out.println(bob.encoder(chaine));
+		chaine=bob.decoder(chaine);
+		System.out.println(chaine);
 	}
 
     /**
@@ -119,8 +125,7 @@ public class Enigma extends Composant
 			return super.getComposantSuivant().encoder(c, sens);
 		case -1:
 			((Rotor)super.getComposantSuivant()).tourner();
-			/*c=this.cable1.encode(c);
-			c=this.cable2.encode(c);*/
+			
 			return c;
 		}
 		return '&';
@@ -133,7 +138,6 @@ public class Enigma extends Composant
 	public String encoder(String chaine)
 	{
 		String result="";
-		
 		
 		for(int i=0; i<chaine.length(); i++)
 		{
@@ -151,6 +155,102 @@ public class Enigma extends Composant
 			result=result+c;
 		}
 		return result;
+	}
+	
+	public String decoder(String chaine) // ne gere pas encore les cables
+	{
+		int nb_mots = 0;
+		int nb_mots_trouve;
+		String chaine_crypte="";
+		String retour ="";
+		//creation d'un tableau simulant les rotors
+		//le but est de trouver la configuration puis de l'appliquer une fois tous les elements trouves
+		char[] tab_rotor = new char[26];
+		for( int i=0; i<tab_rotor.length; i++) 
+		{
+			tab_rotor[i] = (char)('A' + i-1);
+		}
+		
+		for(int i=0 ; i<tab_rotor.length ; i++)
+		{
+			for(int j=0 ; j<tab_rotor.length ; j++)
+			{
+				for(int k=0 ; k<tab_rotor.length ; k++)
+				{
+					reglerRotor(tab_rotor[i], tab_rotor[j], tab_rotor[k]) ;
+					chaine_crypte = encoder(chaine);
+					// la chaine est decoder d'une certaine façon, comparer les mots avec ceux du dictionnaires pour voir la cohérence
+					nb_mots_trouve = parcours_dico(chaine_crypte);
+					
+					if(nb_mots_trouve > nb_mots)
+					{
+						nb_mots = nb_mots_trouve;
+						System.out.println(" Rotor n°1 : "+ tab_rotor[i]+"\n Rotor n°2 : "+ tab_rotor[j]+"\n Rotor n°3 : "+ tab_rotor[k]+"\n");
+						retour = chaine_crypte;
+					}
+				}
+			}
+		}
+		return retour;
+	}
+
+	int parcours_dico(String s) 
+	{	
+		int nb_occurence=0;
+		
+		ArrayList<String> dico= new ArrayList<String>();
+		
+				// ACCES AU FICHIER DICO
+				
+				try {
+				br = new BufferedReader(new FileReader("dico.txt"));
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+					System.out.println("Impossible de trouver le fichier");
+				}
+				
+				// RECUPERATION DES MOTS
+		        String mot = "";
+		            	
+				try {
+					while(mot!= null){
+						
+						dico.add(mot);
+						mot=br.readLine();
+					}
+				} 
+				catch (IOException e) {
+					e.printStackTrace();System.out.println("Impossible de lire le fichier");
+				}
+				 
+				// AFFICHEGE DONNEES 
+				
+				/*for(int i=0; i<dico.size();i++)
+				{
+					System.out.println(dico.get(i));
+				}*/
+				
+				// SPLIT DE S
+				
+				 String str[]= s.split(" ");
+				 /*for(int j=0;j<str.length;j++)
+				 {
+					System.out.println(str[j]);
+				 }*/
+				 
+				 // CALCUL DU NB D OCCURENCE
+				 
+				for(int l=0; l<str.length;l++)
+				{
+					//System.out.println("2");
+					if(dico.contains(str[l]))
+					{
+						//System.out.println("3--------");
+						nb_occurence++;
+					}
+				}
+				//System.out.println(nb_occurence);
+				return nb_occurence;
 	}
 
 	@Override
