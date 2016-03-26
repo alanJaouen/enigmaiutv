@@ -365,14 +365,7 @@ public class FenetrePrincipale extends JFrame {
 					int lu;
 					while ((lu=br.read()) != -1)
 					{
-						if( lu>=65 && lu<=90)//on converti les majuscule en minuscules
-							lu=lu+32;
-						
-						if( (lu>=97 && lu<=122)/*a à z*/ || lu==32 /*espace*/ )
-							str+=(char)lu;
-						else
-							str+=' ';
-						
+						str+=(char)lu;		
 					}
 					br.close();				
 				}  
@@ -417,8 +410,13 @@ public class FenetrePrincipale extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			String chaine=FenetrePrincipale.this.enigma.decoder(FenetrePrincipale.this.tabTextArea[0].getText());
-			FenetrePrincipale.this.tabTextArea[1].setText(chaine);
+			
+			String chaine=FenetrePrincipale.this.tabTextArea[0].getText();
+			FenetreWait avc= new FenetreWait();
+			avc.setLabel("Décryptage du message");
+			FenetrePrincipale.this.enigma.setAvanc(avc);
+			new Threadwait(FenetrePrincipale.this.enigma, chaine);
+			
 		}
 		
 	}//fin de TraduireListenerSansParam
@@ -690,14 +688,20 @@ public class FenetrePrincipale extends JFrame {
 
 	    @Override
 	    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
+	    	
+	    	String string2="";
 	    	string = Normalizer.normalize(string, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
-	        for (int n = string.length(); n > 0; n--) 
+	        for (int n = 0; n <string.length(); n++) 
 	        {//si copier coller
-	            char c = string.charAt(n - 1);//on fait les caractere 1 par 1
+	            char c = string.charAt(n);//on fait les caractere 1 par 1
+	            if(c>=65 && c<=90)
+	            	c+=32;
 	            if ((c>=97 && c<=122) || c == ' ') //si une lettre minuscule ou un espace
-	                super.replace(fb, i, i1, String.valueOf(c), as);//on ajoute au document
+	                string2+=String.valueOf(c);
+	            else string2+=" ";//sinon on ajoute un espace
 	            
 	        }
+	    	super.replace(fb, i, i1, string2, as);//on ajoute au document
 	        
 	    }
 
@@ -712,6 +716,27 @@ public class FenetrePrincipale extends JFrame {
 
 	    }
 	    
+	}
+	
+	public class Threadwait extends Thread
+	{
+		private Enigma e;
+		
+		private String msg;
+		
+		
+		public Threadwait(Enigma e, String str)
+		{
+			super();
+			this.e=e;
+			this.msg=str;
+			this.start();
+		}
+		
+		public void run()
+		{
+			FenetrePrincipale.this.tabTextArea[1].setText(e.decoder(msg));
+		}
 	}
 	
 }

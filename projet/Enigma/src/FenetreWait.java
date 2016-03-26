@@ -1,6 +1,8 @@
 
 
 import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -78,6 +80,9 @@ public class FenetreWait extends JFrame {
 		
 		this.label = new JLabel("Chargement");
 		text.add(this.label);
+		panel.setBorder(BorderFactory.createRaisedBevelBorder());
+		
+		
 		setVisible(true);
 	}
 	
@@ -101,4 +106,8 @@ public class FenetreWait extends JFrame {
 			this.barre.setValue(n);
 	}
 	
+	public int getAvancement( )
+	{
+		return this.barre.getValue();
+	}
 }
