@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -5,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextArea;
@@ -14,11 +16,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.Normalizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,6 +39,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -341,7 +348,8 @@ public class FenetrePrincipale extends JFrame {
 				}catch ( Exception e ) {
 				System.err.println( "Could not use Look and Feel:" + e );
 				}
-			
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichier texte", "txt", "text");
+			fc.setFileFilter(filter);
 			int returnVal = fc.showOpenDialog(FenetrePrincipale.this);//return 1 si erreur
 			
 			if(returnVal == 0) //si l'utilisateur a chois un fichier
@@ -606,8 +614,23 @@ public class FenetrePrincipale extends JFrame {
 						}
 					
 				}
+				Line2D tangent1	= new Line2D.Double();
+				//CubicCurve2D c = new CubicCurve2D.Double();
 				
-				g.drawLine(x[0], y[0], x[1], y[1]);
+				Point2D[] points= {
+						new Point2D.Double(x[0]+10,y[0]+10),
+						new Point2D.Double(x[0]+20,y[0]+20)
+						
+				};
+				
+				Graphics2D g2 = (Graphics2D)g;
+				g2.setStroke(new BasicStroke(2));//taille du truc
+				
+				// create new CubicCurve2D.Double
+				CubicCurve2D c = new CubicCurve2D.Double();
+				// draw CubicCurve2D.Double with set coordinates
+				c.setCurve(x[0], y[0], 400, 400, 0,0, x[1], y[1]);
+				g2.draw(c);
 				
 			}
 			
@@ -661,11 +684,13 @@ public class FenetrePrincipale extends JFrame {
 
 	    @Override
 	    public void replace(FilterBypass fb, int i, int i1, String string, AttributeSet as) throws BadLocationException {
+	    	string = Normalizer.normalize(string, Normalizer.Form.NFD).replaceAll("[\u0300-\u036F]", "");
 	        for (int n = string.length(); n > 0; n--) 
 	        {//si copier coller
 	            char c = string.charAt(n - 1);//on fait les caractere 1 par 1
 	            if ((c>=97 && c<=122) || c == ' ') //si une lettre minuscule ou un espace
 	                super.replace(fb, i, i1, String.valueOf(c), as);//on ajoute au document
+	            
 	        }
 	        
 	    }
