@@ -13,19 +13,9 @@ public class Enigma extends Composant
 	private BufferedReader br;
 	
 	private FenetreWait avanc; 
+	
+	private ArrayList<String> dico;
     
-	/* SUPPRIME MOI!*/
-	public static void main(String args[])
-	{
-		Enigma bob= new Enigma();
-		String chaine= "il faut demander aux autres de venir";
-		System.out.println(chaine);
-		chaine=bob.encoder(chaine);
-		System.out.println(chaine);
-		chaine=bob.decoder(chaine);
-		System.out.println(chaine);
-	}
-
     /**
      * fait tourner le 1er rotor (cascade pour les autre) (nb singe: super.suivant ;) )
      * 
@@ -115,6 +105,8 @@ public class Enigma extends Composant
         //les cables
         this.reglerCable(1, 'a', 'h');
         this.reglerCable(2, 'm', 'k');
+        
+        this.dico= new ArrayList<String>();
     }
 
 	@Override
@@ -192,7 +184,6 @@ public class Enigma extends Composant
 					if(nb_mots_trouve > nb_mots)
 					{
 						nb_mots = nb_mots_trouve;
-						System.out.println(" Rotor n°1 : "+ tab_rotor[i]+"\n Rotor n°2 : "+ tab_rotor[j]+"\n Rotor n°3 : "+ tab_rotor[k]+"\n");
 						retour = chaine_crypte;
 					}
 				}
@@ -212,61 +203,44 @@ public class Enigma extends Composant
 
 	private int parcours_dico(String s) 
 	{	
+				
+		if(this.dico.size() == 0)
+		{
+			// ACCES AU FICHIER DICO
+			
+			try {
+			br = new BufferedReader(new FileReader("dico.txt"));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+				System.err.println("Impossible de trouver le fichier");
+			}
+			
+			// RECUPERATION DES MOTS
+		    String mot = "";
+		          	
+			try {
+				while(mot!= null){
+					
+					this.dico.add(mot);
+					mot=br.readLine();
+				}
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+				System.err.println("Impossible de lire le fichier");
+			}
+		}
+		
+		// SPLIT DE S
+		String str[]= s.split(" ");
+		
+		// CALCUL DU NB D OCCURENCE
 		int nb_occurence=0;
 		
-		ArrayList<String> dico= new ArrayList<String>();
-		
-				// ACCES AU FICHIER DICO
-				
-				try {
-				br = new BufferedReader(new FileReader("dico.txt"));
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-					System.out.println("Impossible de trouver le fichier");
-				}
-				
-				// RECUPERATION DES MOTS
-		        String mot = "";
-		            	
-				try {
-					while(mot!= null){
-						
-						dico.add(mot);
-						mot=br.readLine();
-					}
-				} 
-				catch (IOException e) {
-					e.printStackTrace();System.out.println("Impossible de lire le fichier");
-				}
-				 
-				// AFFICHEGE DONNEES 
-				
-				/*for(int i=0; i<dico.size();i++)
-				{
-					System.out.println(dico.get(i));
-				}*/
-				
-				// SPLIT DE S
-				
-				 String str[]= s.split(" ");
-				 /*for(int j=0;j<str.length;j++)
-				 {
-					System.out.println(str[j]);
-				 }*/
-				 
-				 // CALCUL DU NB D OCCURENCE
-				 
-				for(int l=0; l<str.length;l++)
-				{
-					//System.out.println("2");
-					if(dico.contains(str[l]))
-					{
-						//System.out.println("3--------");
-						nb_occurence++;
-					}
-				}
-				//System.out.println(nb_occurence);
-				return nb_occurence;
+		for(int l=0; l<str.length;l++)
+			if(this.dico.contains(str[l]))
+				nb_occurence++;
+		return nb_occurence;
 	}
 
 	@Override

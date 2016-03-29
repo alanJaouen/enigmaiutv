@@ -14,10 +14,7 @@ public class Reflecteur extends ComposantCryptage
 	@Override
 	public char encoder(char c, int sens)
 	{
-		/* reflecteur C http://www.codesandciphers.org.uk/enigma/rotorspec.htm */
-		//System.out.println(c+" devient "+super.getLettresRotor()[((int) c)-97]);
 		return super.getComposantPrecedant().encoder(super.getLettresRotor()[((int) c)-97], -1);
-
 	}
 
 }

@@ -93,9 +93,7 @@ public class Rotor extends ComposantCryptage
     			((Rotor) o).tourner();
     			
     			if( p instanceof Rotor)
-    			{
     				((Rotor) p).tourner();
-    			}
     		}
     		
     	}
