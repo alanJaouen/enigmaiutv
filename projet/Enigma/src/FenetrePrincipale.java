@@ -571,6 +571,10 @@ public class FenetrePrincipale extends JFrame {
 		
 		private int y;
 		
+		private int randx;
+		
+		private int randy;
+		
 		public MonMouseListener m;
 		
 		public JPanelCable()
@@ -578,6 +582,8 @@ public class FenetrePrincipale extends JFrame {
 			super();
 			m=new MonMouseListener();
 			this.addMouseMotionListener(m);
+			this.randx= (int)(Math.random() * getWidth()*10);
+			this.randy= (int)(Math.random() * getHeight()*10);
 		}
 		
 		public void paint(Graphics g)
@@ -619,7 +625,6 @@ public class FenetrePrincipale extends JFrame {
 					
 				}
 				Line2D tangent1	= new Line2D.Double();
-				//CubicCurve2D c = new CubicCurve2D.Double();
 				
 				Point2D[] points= {
 						new Point2D.Double(x[0]+10,y[0]+10),
