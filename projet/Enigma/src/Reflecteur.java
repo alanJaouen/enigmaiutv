@@ -4,7 +4,6 @@ public class Reflecteur extends ComposantCryptage
 	public Reflecteur ()
 	{
 		char[] tab= {'f','v','p','j','i','a','o','y','e','d','r','z','x','w','g','c','t','k','u','q','s','b','n','m','h','l'};
-		//char[] tab= {'a','b','c'};
 		super.setLettresRotor(tab);
 	}
 	

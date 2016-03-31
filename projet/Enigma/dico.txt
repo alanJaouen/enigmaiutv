@@ -91,7 +91,7 @@ chiffres
 chose
 choses
 ciel
-cœur
+cï¿½ur
 coeurs
 coin
 combien
@@ -327,7 +327,7 @@ pouvoir
 premier
 premiers
 prendre
-près
+prï¿½s
 present
 presque
 prochain
