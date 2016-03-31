@@ -15,8 +15,14 @@ public class Enigma extends Composant
 	private FenetreWait avanc; 
 	
 	private ArrayList<String> dico;
+	
+	private int nb_mot;
     
-    /**
+    public int getNb_mot() {
+		return nb_mot;
+	}
+
+	/**
      * fait tourner le 1er rotor (cascade pour les autre) (nb singe: super.suivant ;) )
      * 
      */
@@ -165,7 +171,7 @@ public class Enigma extends Composant
 			tab_rotor[i] = (char)('A' + i-1);
 		}
 		
-		this.avanc.setAvancement(0);
+		//this.avanc.setAvancement(0);
 		
 		for(int i=0 ; i<tab_rotor.length ; i++)
 		{
@@ -173,9 +179,11 @@ public class Enigma extends Composant
 			int vali=(i*100)/25;
 			for(int j=0 ; j<tab_rotor.length ; j++)
 			{
-				this.avanc.setAvancement(vali+  ((j*(100/25))/25)  );
+				int valj=(j*(100/25))/25;
+				
 				for(int k=0 ; k<tab_rotor.length ; k++)
 				{
+					this.avanc.setAvancement(vali+valj+  (((k*(100/25))/25)/25)  );
 					reglerRotor(tab_rotor[i], tab_rotor[j], tab_rotor[k]) ;
 					chaine_crypte = encoder(chaine);
 					// la chaine est decoder d'une certaine façon, comparer les mots avec ceux du dictionnaires pour voir la cohérence
@@ -189,7 +197,11 @@ public class Enigma extends Composant
 				}
 			}
 		}
+		if(nb_mots < 10)
+			retour="Pas assez de correspondance avec le dictionnaire pour proposer une solution";
+		
 		this.avanc.dispose();
+		this.nb_mot=nb_mots;
 		return retour;
 	}
 
