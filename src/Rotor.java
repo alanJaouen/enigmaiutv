@@ -32,7 +32,6 @@ public class Rotor extends ComposantCryptage
     		{
     			this.positionInitiale=i;
     			this.positionCourante=i;
-    			System.out.println("posI: "+this.positionCourante);
     			return;
     		}
     	

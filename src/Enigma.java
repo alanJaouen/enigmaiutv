@@ -213,13 +213,12 @@ public class Enigma extends Composant
 		this.avanc = avanc;
 	}
 
-	private int parcours_dico(String s) 
+	public int parcours_dico(String s) 
 	{	
 				
 		if(this.dico.size() == 0)
 		{
 			// ACCES AU FICHIER DICO
-			
 			try {
 			br = new BufferedReader(new FileReader("dico.txt"));
 			} catch (FileNotFoundException e1) {
@@ -228,14 +227,11 @@ public class Enigma extends Composant
 			}
 			
 			// RECUPERATION DES MOTS
-		    String mot = "";
+		    String mot;
 		          	
 			try {
-				while(mot!= null){
-					
+				while((mot=br.readLine()) != null)
 					this.dico.add(mot);
-					mot=br.readLine();
-				}
 			} 
 			catch (IOException e) {
 				e.printStackTrace();
@@ -249,9 +245,10 @@ public class Enigma extends Composant
 		// CALCUL DU NB D OCCURENCE
 		int nb_occurence=0;
 		
-		for(int l=0; l<str.length;l++)
-			if(this.dico.contains(str[l]))
+		for(int i=0; i<str.length;i++)
+			if(this.dico.contains(str[i]))
 				nb_occurence++;
+		
 		return nb_occurence;
 	}
 
