@@ -67,6 +67,8 @@ public class FenetrePrincipale extends JFrame {
 			};
 	
 	private Enigma enigma;
+	
+	private JLabel nbMot;
 
 	public static void main(String[] args) {
 		new FenetrePrincipale();
@@ -324,6 +326,8 @@ public class FenetrePrincipale extends JFrame {
 		{
 			titre="Sortie";
 			this.tabTextArea[1]=t1;
+			this.nbMot=new JLabel("nombre de correspondance: ");
+			p.add(this.nbMot, BorderLayout.SOUTH);
 		}
 		
 		p.setBorder(BorderFactory.createTitledBorder(titre));
@@ -741,6 +745,7 @@ public class FenetrePrincipale extends JFrame {
 		public void run()
 		{
 			FenetrePrincipale.this.tabTextArea[1].setText(e.decoder(msg));
+			FenetrePrincipale.this.nbMot.setText("nombre de correspondances: "+FenetrePrincipale.this.enigma.getNb_mot());
 		}
 	}
 	

@@ -66,7 +66,6 @@ public class FenetreWait extends JFrame {
 		this.barre = new JProgressBar();
 		this.barre.setValue(0);
 		this.barre.setMaximum(100);
-		this.barre.setForeground(Color.RED);
 		
 		JPanel t= new JPanel();
 		t.setLayout(new BorderLayout());
